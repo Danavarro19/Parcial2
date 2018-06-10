@@ -1,6 +1,5 @@
 package Abstract;
 
-import Client.Raza.Nombre;
 import Client.Raza.Raza;
 import Concrete.Edifiacion.TipoEdif;
 import Concrete.Milicia.TipoMilicia;

@@ -4,33 +4,32 @@ import Abstract.AbstractFactory;
 import Abstract.Edificacion;
 import Client.Raza.Raza;
 import Concrete.Edifiacion.*;
-
-import java.util.ArrayList;
-
 import static Client.Factories.*;
+import Client.Raza.Nombre;
 import static Concrete.Edifiacion.TipoEdif.*;
 
 public class Jugador {
 
-    private String nombre;
-    private Raza raza;
+    private final String nombre;
+    private final Raza raza;
+    private final Territorio territorio;
     private AbstractFactory abstractFactory;
     private CentroMando centroMando;
 
+   
     public Jugador(String nombre, Raza raza) {
-
         this.nombre = nombre;
         this.raza = raza;
+        this.territorio=new Territorio();
     }
 
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
 
+    public Nombre getRaza() { return raza.getNombre(); }
 
+    
     public void iniciarPartida(){
-
         abstractFactory = FactoryProducer.getFactory(EDIFICACION);
         centroMando = (CentroMando) abstractFactory.getEdificacion
                 (CENTRO_DE_MANDO,this.raza);
@@ -39,27 +38,20 @@ public class Jugador {
 
 
     public Edificacion construir(TipoEdif tipoEdif) throws Exception{
-
         Edificacion edificacion;
         abstractFactory = FactoryProducer.getFactory(EDIFICACION);
-
-        if(centroMando.verificarRecursos(abstractFactory.getEdificacion(tipoEdif,this.raza))){
-            edificacion=abstractFactory.getEdificacion(tipoEdif,this.raza);
-            centroMando.addEdificacion(edificacion);
-            centroMando.pagar(edificacion.getCosto());
-            return edificacion;
-
-        }else {
-            Exception e = new Exception("recursos insuficientes");
-            throw e;
-        }
+        edificacion=abstractFactory.getEdificacion(tipoEdif,this.raza);
+        centroMando.pagar(edificacion.getCosto());
+        centroMando.addEdificacion(edificacion);
+        return edificacion;
     }
 
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre +
-                " Raza: "+ raza.getNombre()+
-                "Centro de mando: "+centroMando;
+        return "Jugador: " + nombre +
+                "// Raza: "+ raza.getNombre()+
+                "\nCentro de mando: "+centroMando+
+                "\n********************************";
     }
 }

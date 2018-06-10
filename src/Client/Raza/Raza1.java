@@ -9,7 +9,6 @@ public class Raza1 extends Raza{
         super(RAZA1,1, 2, 3);
     }
 
-
     @Override
     void gritoGuerra() {
         System.out.println("Raza1 hasta la muerte");

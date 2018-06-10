@@ -11,17 +11,11 @@ import Concrete.Vehiculo.TipoVehiculo;
 
 public class EdificacionAbstractFactory implements AbstractFactory {
 
+    @Override
+    public Milicia getMilicia(TipoMilicia milicia,Raza raza) { return null; }
 
     @Override
-    public Milicia getMilicia(TipoMilicia milicia,Raza raza) {
-        return null;
-    }
-
-    @Override
-    public Vehiculo getVehiculo(TipoVehiculo tipoVehiculo, Raza raza) {
-        return null;
-    }
-
+    public Vehiculo getVehiculo(TipoVehiculo tipoVehiculo, Raza raza) { return null; }
 
     @Override
     public Edificacion getEdificacion(TipoEdif edif, Raza raza) {
@@ -31,13 +25,11 @@ public class EdificacionAbstractFactory implements AbstractFactory {
                 return new CentroMando(raza);
 
             case GENERADOR_DE_RECURSOS:
-                return new GeneradorRecurso(raza);
+                return new GeneradorRecurso(raza, edif);
 
             case REOLECTOR_DE_RECURSOS:
-                return new RecolectorRecurso(raza);
-
+                return new RecolectorRecurso(raza, edif);
         }
-
         return null;
     }
 }

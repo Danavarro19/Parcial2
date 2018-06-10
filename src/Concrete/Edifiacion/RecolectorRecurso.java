@@ -7,7 +7,7 @@ import Client.Raza.Raza;
 
 public class RecolectorRecurso extends  Edificacion {
 
-    protected RecolectorRecurso(Raza raza) {
-        super(raza);
+    protected RecolectorRecurso(Raza raza, TipoEdif tipo) {
+        super(raza, tipo);
     }
 }

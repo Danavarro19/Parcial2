@@ -15,9 +15,7 @@ public abstract class Raza {
         this.nombre=nombre;
     }
 
-    public Nombre getNombre() {
-        return nombre;
-    }
+    public Nombre getNombre() { return nombre; }
 
     abstract void gritoGuerra();
 }

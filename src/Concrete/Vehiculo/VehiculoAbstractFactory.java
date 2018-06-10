@@ -10,9 +10,7 @@ import Concrete.Milicia.TipoMilicia;
 
 public class VehiculoAbstractFactory implements AbstractFactory {
     @Override
-    public Milicia getMilicia(TipoMilicia milicia, Raza raza) {
-        return null;
-    }
+    public Milicia getMilicia(TipoMilicia milicia, Raza raza) { return null; }
 
     @Override
     public Vehiculo getVehiculo(TipoVehiculo vehiculo, Raza raza) {
@@ -28,7 +26,5 @@ public class VehiculoAbstractFactory implements AbstractFactory {
     }
 
     @Override
-    public Edificacion getEdificacion(TipoEdif edif, Raza raza) {
-        return null;
-    }
+    public Edificacion getEdificacion(TipoEdif edif, Raza raza) { return null; }
 }

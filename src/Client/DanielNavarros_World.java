@@ -1,8 +1,10 @@
 package Client;
 
 import Client.Raza.*;
+import Concrete.Edifiacion.TipoEdif;
+import static Concrete.Edifiacion.TipoEdif.GENERADOR_DE_RECURSOS;
 import java.util.Scanner;
-import static Concrete.Edifiacion.TipoEdif.*;
+
 
 
 public class DanielNavarros_World {
@@ -11,51 +13,43 @@ public class DanielNavarros_World {
     private static DanielNavarros_World juego;
     private static Jugador[] jugadores;
 
+    
 
-    private DanielNavarros_World(){
-        jugadores = new Jugador[]{crearJugador(), crearJugador()};
-        jugadores[0].iniciarPartida();
-        jugadores[1].iniciarPartida();
+
+    private DanielNavarros_World() throws Exception{
+        
+        jugadores = new Jugador[2];
+        
+        for (int i=0;i<2;i++ ){
+            jugadores[i]=crearJugador();
+            jugadores[i].iniciarPartida();
+        }
+        Menu.Dashboard(jugadores);
     }
 
 
-    public static synchronized DanielNavarros_World getJuego(){
-
-        if (juego==null){
+    public static synchronized DanielNavarros_World getJuego() throws Exception{
+        if (juego==null)
             juego = new DanielNavarros_World();
-        }
-
         return juego;
     }
+    
+    
+    public static Jugador[] getJugadores() { return jugadores; }
+
+    public static int getFase() { return fase; }
 
 
-    public static int getFase() {
-        return fase;
-    }
-
-
-    private Jugador crearJugador(){
-
-        System.out.print("Ingrese su nombre de jugador: ");
-        Scanner scanner = new Scanner(System.in);
-        String nombre = scanner.nextLine();
-
+    private Jugador crearJugador() throws Exception{
+        String nombre = Menu.getNombre();
         return new Jugador(nombre, seleccionRaza());
     }
 
 
-    public Raza seleccionRaza(){
+    public Raza seleccionRaza() throws Exception{
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Seleccione una raza:\n" +
-                "1-Raza1\n" +
-                "2-Raza2\n" +
-                "3-Raza3");
-        int opcion = scanner.nextInt();
-
+        int opcion=Menu.menuRaza();
         switch (opcion){
-
             case 1:
                 return new Raza1();
             case 2:
@@ -67,52 +61,42 @@ public class DanielNavarros_World {
     }
 
 
-    public void verDetalleJugadores(){
-
-        for (Jugador j: jugadores){
-            System.out.println("Jugador "+j.toString());
+    public void jugarTurno(Jugador jugador) throws Exception{
+        
+        int opcion = Menu.menuTurno(jugador);
+        switch(opcion){
+            case 1:
+                jugador.construir(GENERADOR_DE_RECURSOS);
+                break;
+            case 2:
+                break;
         }
+        Menu.Division();
+        
     }
 
-    public void dashboard(){
-
-        System.out.println(jugadores[0].toString());
-        System.out.println(jugadores[1].toString());
-
-    }
-
-
-    public void jugarTurno(Jugador jugador){
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Fase "+this.fase);
-        System.out.println("Turno " + jugador.getNombre());
-        System.out.println(jugador.getNombre()+" presione cualquier tecla " +
-                "y luego enter");
-        scanner.next();
-        try{
-        jugador.construir(GENERADOR_DE_RECURSOS);
-        }catch (Exception e){
-            System.err.println(e.getMessage());
-        }
-    }
-
-
-    public void Turno(){
-
+    
+    public void Turno() throws Exception{
         while (fase < 6) {
-            this.fase++;
             jugarTurno(jugadores[1]);
             jugarTurno(jugadores[0]);
-            juego.verDetalleJugadores();
-
+            Menu.Dashboard(jugadores);
+            DanielNavarros_World.fase++;
         }
     }
 
 
-    public static void main(String args[]){
-
-        DanielNavarros_World juego= DanielNavarros_World.getJuego();
-        juego.Turno();
-     }
+    public static void main(String args[]) {
+        
+        
+        while(true){
+            try {
+                DanielNavarros_World jueguillo= DanielNavarros_World.getJuego();
+                jueguillo.Turno();
+                break;
+            }catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+    }
 }
