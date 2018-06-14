@@ -1,10 +1,12 @@
 package Client;
 
 import Abstract.Recurso;
+import static Abstract.Recurso.METALES;
 import Client.Raza.*;
 import Concrete.Edifiacion.TipoEdif;
+import static Concrete.Edifiacion.TipoEdif.CUARTEL;
 import static Concrete.Edifiacion.TipoEdif.GENERADOR_DE_RECURSOS;
-import static Concrete.Edifiacion.TipoEdif.REOLECTOR_DE_RECURSOS;
+import static Concrete.Edifiacion.TipoEdif.RECOLECTOR_DE_RECURSOS;
 
 
 
@@ -66,20 +68,20 @@ public class DanielNavarros_World {
                 switch(op){
                 
                     case 1:
-                    case 2:
                         jugador.getTerritorio().construir(GENERADOR_DE_RECURSOS,
                                 op);
                         break;
+                    case 2:
                     case 3:
-                        jugador.getTerritorio().construir(REOLECTOR_DE_RECURSOS,
+                        jugador.getTerritorio().construir(RECOLECTOR_DE_RECURSOS,
                                 op);
                         break;
                     case 4:
-                        jugador.getTerritorio().construir(REOLECTOR_DE_RECURSOS,
+                        jugador.getTerritorio().construir(CUARTEL,
                                 op);
                         break;
                     case 5:
-                        jugador.getTerritorio().construir(REOLECTOR_DE_RECURSOS,
+                        jugador.getTerritorio().construir(RECOLECTOR_DE_RECURSOS,
                                 op);
                         break;
                 }
@@ -89,14 +91,15 @@ public class DanielNavarros_World {
                 int opcion2 =Menu.menuGuerra();
                 switch(opcion2){
                     case 1:
-                        
+                        //jugador.getTerritorio().
                     case 2:
                     case 3:
                 }
                 
                 break;
             case 3:
-                
+                jugador.getCentroDeMando().recibir(jugador.getTerritorio().recolectar());
+                break;
         }
         terminarTurno(jugador);
         Menu.Division();        
@@ -105,8 +108,9 @@ public class DanielNavarros_World {
     }
     
     private void terminarTurno(Jugador jugador){
-        jugador.getCentroDeMando().recibir(Recurso.CALIZA, 
-                jugador.getTerritorio().generarRecursos());    
+        jugador.getCentroDeMando().recibir(METALES, 
+                jugador.getTerritorio().generarRecursos()); 
+        jugador.getTerritorio().producir();
         turno=!turno;
     }
 

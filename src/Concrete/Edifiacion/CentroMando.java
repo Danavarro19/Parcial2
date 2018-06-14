@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static Abstract.Recurso.*;
+import Client.Jugador;
 import static Concrete.Edifiacion.TipoEdif.CENTRO_DE_MANDO;
 
 public class CentroMando extends Edificacion {
@@ -21,9 +22,9 @@ public class CentroMando extends Edificacion {
         this.edificaciones=new ArrayList<>();
         nivel=0;
         inventarioRecursos = new HashMap<>();
-        inventarioRecursos.put(CALIZA,1000);
-        inventarioRecursos.put(COMIDA,500);
-        inventarioRecursos.put(METALES,300);
+        inventarioRecursos.put(CALIZA,super.getRaza().getRazaVelocidad()*10);
+        inventarioRecursos.put(COMIDA,super.getRaza().getRazaFuerza()*12);
+        inventarioRecursos.put(METALES,super.getRaza().getRazaRecoleccion()*6);
     }
 
     public ArrayList<Edificacion> getEdificaciones() { return edificaciones; }
@@ -47,6 +48,14 @@ public class CentroMando extends Edificacion {
         inventarioRecursos.put(recurso, inventarioRecursos.get(recurso)+n);
     }
     
+    public void recibir(Map<Recurso, Integer> pago){
+        for (Map.Entry<Recurso,Integer> r: pago.entrySet()){
+        
+            inventarioRecursos.put(r.getKey(), 
+                    inventarioRecursos.get(r.getKey())+pago.get(r.getKey()));
+        }
+    }
+    
     public void pagar(Map<Recurso, Integer> costo) throws Exception{
         for (Map.Entry<Recurso,Integer> r: costo.entrySet()){
             if(inventarioRecursos.get(r.getKey())>=r.getValue()){
@@ -65,8 +74,8 @@ public class CentroMando extends Edificacion {
     public String toString() {
         return "\nNivel: " + nivel +
                   "| Edificaciones: " + edificaciones.size() +
-                  "| recurso1:" + inventarioRecursos.get(CALIZA)+
-                  "| recurso2:" + inventarioRecursos.get(COMIDA)+
-                  "| recurso3:" + inventarioRecursos.get(METALES);
+                  "| "+CALIZA +": "+ inventarioRecursos.get(CALIZA)+
+                  "| "+COMIDA+": "+ inventarioRecursos.get(COMIDA)+
+                  "| "+METALES+": " + inventarioRecursos.get(METALES);
         }
 }

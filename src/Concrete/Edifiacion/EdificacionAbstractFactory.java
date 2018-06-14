@@ -27,8 +27,11 @@ public class EdificacionAbstractFactory implements AbstractFactory {
             case GENERADOR_DE_RECURSOS:
                 return new GeneradorRecurso(raza, edif);
 
-            case REOLECTOR_DE_RECURSOS:
+            case RECOLECTOR_DE_RECURSOS:
                 return new RecolectorRecurso(raza, edif);
+            
+            case CUARTEL:
+                return new Cuartel(raza,edif);
         }
         return null;
     }

@@ -7,12 +7,19 @@ package Client;
 
 import Abstract.Edificacion;
 import Abstract.Elemento;
+import Abstract.Recurso;
 import static Abstract.Recurso.*;
 import static Client.Factories.EDIFICACION;
+import Concrete.Edifiacion.Cuartel;
 import Concrete.Edifiacion.GeneradorRecurso;
+import Concrete.Edifiacion.ManejadordeRecursos;
 import Concrete.Edifiacion.RecolectorRecurso;
 import Concrete.Edifiacion.TipoEdif;
+import Concrete.Milicia.Especialista;
+import static Concrete.Milicia.TipoMilicia.ESPECIALISTA;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -21,10 +28,11 @@ import java.util.ArrayList;
 public class Territorio {
     
     private final Jugador jugador;
-    public static ArrayList<RecolectorRecurso> recolectorRecurso1= new ArrayList<>();
-    public static ArrayList<RecolectorRecurso> recolectorRecurso2= new ArrayList<>();
-    public static ArrayList<GeneradorRecurso> generadores= new ArrayList<>();
-    public static ArrayList<RecolectorRecurso> cuarteles= new ArrayList<>();
+    public  ArrayList<RecolectorRecurso> recolectorCaliza= new ArrayList<>();
+    public ArrayList<RecolectorRecurso> recolectorComida= new ArrayList<>();
+    public ArrayList<GeneradorRecurso> generadoresMetales= new ArrayList<>();
+    public ArrayList<ManejadordeRecursos> cuarteles= new ArrayList<>();
+    public Especialista especialista;
     
     public Territorio(Jugador jugador){ this.jugador=jugador;}
     
@@ -45,23 +53,27 @@ public class Territorio {
             case GENERADOR_DE_RECURSOS:
                 
                 GeneradorRecurso generador = (GeneradorRecurso) edificacion;
-                generadores.add(generador);
+                generadoresMetales.add(generador.setRecurso(METALES));
                 break;
                 
-            case REOLECTOR_DE_RECURSOS:
+            case RECOLECTOR_DE_RECURSOS:
                 
                 RecolectorRecurso recolector= (RecolectorRecurso) edificacion;
                 if(opc==2){
-                    System.out.println("Recolector recurso 1 agregado"
+                    System.out.println("Recolector "+COMIDA+"1 agregado"
                             + "en jugador "+jugador.getNombre());
-                    recolectorRecurso1.add(recolector);
+                    recolectorCaliza.add(recolector.setRecurso(CALIZA));
                 }
                 else if(opc==3){
-                    System.out.println("Recolector recurso 2"
+                    System.out.println("Cantera de "+CALIZA+""
                             + "en jugador "+jugador.getNombre());
-                    recolectorRecurso2.add(recolector);
+                    recolectorComida.add(recolector.setRecurso(COMIDA));
                 }
                 break;    
+            
+            case CUARTEL:
+                Cuartel cuartel= (Cuartel) edificacion;
+                cuarteles.add(cuartel);
         }
     }
     
@@ -74,7 +86,7 @@ public class Territorio {
     
     public int generarRecursos(){
         int cosecha=0;
-        for (GeneradorRecurso generador: generadores){ 
+        for (GeneradorRecurso generador: generadoresMetales){ 
             if(verificarDisponibilidad(generador))
                 cosecha+=generador.generarRecurso();
         }
@@ -82,12 +94,40 @@ public class Territorio {
         return cosecha;
     }
     
-    public int generarRecursos(Enum tipo, int opc){
-        
-        //for(){}
-        
-        return 0;
+    public void producirRecursos(ArrayList<RecolectorRecurso> recolectores){
+        for(RecolectorRecurso recolector: recolectores){
+            if(verificarDisponibilidad(recolector))
+                recolector.generarRecurso();
+        }
     }
+    
+    public void producir(){
+        producirRecursos(recolectorCaliza);
+        producirRecursos(recolectorComida); 
+    }
+    
+    public int recolectarRecurso(ArrayList<RecolectorRecurso> recolectores){
+        int cosecha=0;
+        for (RecolectorRecurso recolector: recolectores){
+            cosecha+=recolector.getCant();
+        }
+        System.out.println("Cosecha = "+cosecha);
+        return cosecha;
+    }
+    
+    public Map<Recurso, Integer> recolectar(){
+        Map<Recurso, Integer> recoleccion = new HashMap<>();
+        recoleccion.put(CALIZA,recolectarRecurso(recolectorCaliza));
+        recoleccion.put(COMIDA,recolectarRecurso(recolectorComida));
+        return recoleccion;
+    }
+    
+    public Especialista getEspecialista(){
+    //    if (!this.cuarteles.isEmpty())
+      //      return this.cuarteles[0].generarRecurso(ESPECIALISTA);
+        return null;
+    }
+    
     
     
     

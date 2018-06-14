@@ -6,7 +6,7 @@ public class Vaqueros extends Raza{
 
 
     public Vaqueros() {
-        super(VAQUEROS,1, 2, 3);
+        super(VAQUEROS,1, 2, 1);
     }
 
     @Override

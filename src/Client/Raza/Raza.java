@@ -7,7 +7,13 @@ public abstract class Raza {
     private final int razaVelocidad;
     private final int razaRecoleccion;
 
+    public int getRazaFuerza() {return razaFuerza;}
 
+    public int getRazaVelocidad() {return razaVelocidad;}
+
+    public int getRazaRecoleccion() {return razaRecoleccion;}
+
+    
     protected Raza(Nombre nombre, int razaFuerza, int razaVelocidad, int razaRecoleccion) {
         this.razaFuerza = razaFuerza;
         this.razaVelocidad = razaVelocidad;

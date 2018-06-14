@@ -18,7 +18,7 @@ public class MiliciaAbstractFactory implements AbstractFactory {
             case ESCUADRON:
                 return new Escuadron(raza);
 
-            case ESPECIAISTA:
+            case ESPECIALISTA:
                 return new Especialista(raza);
         }
 

@@ -18,11 +18,16 @@ public class GeneradorRecurso extends Edificacion implements ManejadordeRecursos
     
     public Enum getRecurso(){return this.recurso;}
     
+    public GeneradorRecurso setRecurso(Enum recurso){
+        this.recurso=recurso;
+        return this;
+    }
+    
     public GeneradorRecurso(Raza raza, TipoEdif tipo) {
         super(raza, tipo);
         Map<Recurso,Integer> costo = new HashMap<>();
-        costo.put(CALIZA,10);
-        costo.put(METALES,3);
+        costo.put(CALIZA,super.getRaza().getRazaRecoleccion()*2);
+        costo.put(METALES,super.getRaza().getRazaRecoleccion()*3);
         super.setCosto(costo);
         super.setTiempo_espera(2);
     }
@@ -37,7 +42,5 @@ public class GeneradorRecurso extends Edificacion implements ManejadordeRecursos
     };
 
     @Override
-    public Elemento generarRecurso(Enum Recurso) {
-        return null;
-    }
+    public Elemento generarRecurso(Enum Recurso) {return null;}
 }

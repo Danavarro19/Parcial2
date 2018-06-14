@@ -53,9 +53,9 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Seleccione una raza:\n" +
-                "1-"+VAQUEROS+" \n" +
-                "2-"+INDIOS+" \n" +
-                "3-"+ALIENS+" \n");
+                "1-"+VAQUEROS+" |" +
+                "2-"+INDIOS+" | " +
+                "3-"+ALIENS);
         opcion=scanner.nextInt();
         if(opcion >=1 && opcion <=3)
             return opcion;
@@ -85,9 +85,10 @@ public class Menu {
         Scanner scanner=new Scanner(System.in);
         System.out.println("Que deseas hacer en el reino "+jugador.getRaza().getNombre()+
                 "\n1-Construir"
-                        + "\n2-Ir a la guerra");
+                        + "\n2-Ir a la guerra"
+                        + "'n3-Recolectar recursos");
         opcion=scanner.nextInt();
-        if(opcion >=1 && opcion <=2)
+        if(opcion >=1 && opcion <=3)
             return opcion;
         else{
                 Exception e=new Exception("Opcion no valida");
@@ -98,9 +99,9 @@ public class Menu {
     public static int menuConstruccion() throws Exception{
         Scanner scanner = new Scanner(System.in);
         int opcion;
-        System.out.println("1-Recolector de "+CALIZA
+        System.out.println("1-Mina de "+METALES
                 + "\n2-Recolector "+COMIDA
-                + "\n3-Mina de "+METALES
+                + "\n3-Cantera de "+CALIZA
                 + "\n4-Cuartel de Milicia"
                 + "\n5-Fabrica de vehiculos");
         opcion=scanner.nextInt();
@@ -116,7 +117,7 @@ public class Menu {
          int opcion;
          System.out.println("1-Entrenar un espcialista"
                  + "\n2-Entrenar un escuadron"
-                 + "\3-Atacar");
+                 + "\n3-Atacar");
          opcion = scanner.nextInt();
          
         if(opcion >=1 && opcion <=3)
