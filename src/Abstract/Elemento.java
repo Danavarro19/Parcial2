@@ -17,11 +17,14 @@ public abstract class Elemento  {
 
     protected Elemento(Raza raza) {
         this.RAZA=raza;
-        this.FASE_CREACION=DanielNavarros_World.getFase();
+        this.FASE_CREACION=(int)DanielNavarros_World.getFase();
         this.disponible=false;
     }
 
-    public void makeDisponible(){ this.disponible = true; }
+    public void makeDisponible(){ 
+        if(!disponible)
+            this.disponible = true;
+    }
 
     public boolean isDisponible() { return disponible; }
 
@@ -34,6 +37,8 @@ public abstract class Elemento  {
     public float getDanio_ataque() { return danio_ataque; }
 
     public Map<Recurso, Integer> getCosto() { return costo; }
+    
+    public Raza getRaza(){return this.RAZA;}
 
     public void setVida(int vida) { this.vida = vida; }
 

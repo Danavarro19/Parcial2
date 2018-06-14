@@ -3,9 +3,9 @@ package Abstract;
 import Client.Raza.Raza;
 
 import java.util.Map;
-import static Abstract.Recurso.RECURSO1;
-import static Abstract.Recurso.RECURSO3;
 import Concrete.Edifiacion.TipoEdif;
+import static Abstract.Recurso.CALIZA;
+import static Abstract.Recurso.METALES;
 
 public abstract class Edificacion extends Elemento{
     

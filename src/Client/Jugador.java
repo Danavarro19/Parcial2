@@ -2,6 +2,7 @@ package Client;
 
 import Abstract.AbstractFactory;
 import Abstract.Edificacion;
+import Abstract.Recurso;
 import Client.Raza.Raza;
 import Concrete.Edifiacion.*;
 import static Client.Factories.*;
@@ -15,19 +16,20 @@ public class Jugador {
     private final Territorio territorio;
     private AbstractFactory abstractFactory;
     private CentroMando centroMando;
-
-   
+     
     public Jugador(String nombre, Raza raza) {
         this.nombre = nombre;
         this.raza = raza;
-        this.territorio=new Territorio();
+        this.territorio=new Territorio(this);
     }
-
 
     public String getNombre() { return nombre; }
 
-    public Nombre getRaza() { return raza.getNombre(); }
+    public Raza getRaza() { return raza; }
 
+    public Territorio getTerritorio() { return territorio; }
+
+    public CentroMando getCentroDeMando(){ return this.centroMando;}
     
     public void iniciarPartida(){
         abstractFactory = FactoryProducer.getFactory(EDIFICACION);
@@ -35,23 +37,12 @@ public class Jugador {
                 (CENTRO_DE_MANDO,this.raza);
         centroMando.makeDisponible();
     }
-
-
-    public Edificacion construir(TipoEdif tipoEdif) throws Exception{
-        Edificacion edificacion;
-        abstractFactory = FactoryProducer.getFactory(EDIFICACION);
-        edificacion=abstractFactory.getEdificacion(tipoEdif,this.raza);
-        centroMando.pagar(edificacion.getCosto());
-        centroMando.addEdificacion(edificacion);
-        return edificacion;
-    }
-
-
+    
+    
     @Override
     public String toString() {
         return "Jugador: " + nombre +
-                "// Raza: "+ raza.getNombre()+
-                "\nCentro de mando: "+centroMando+
-                "\n********************************";
+                " | "+ raza.getNombre()+
+                "\nCentro de mando: "+centroMando;
     }
 }

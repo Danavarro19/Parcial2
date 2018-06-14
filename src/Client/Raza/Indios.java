@@ -1,11 +1,11 @@
 package Client.Raza;
 
-import static Client.Raza.Nombre.RAZA2;
+import static Client.Raza.Nombre.INDIOS;
 
-public class Raza2 extends Raza{
+public class Indios extends Raza{
 
-    public Raza2() {
-        super(RAZA2,3, 2, 1);
+    public Indios() {
+        super(INDIOS,3, 2, 1);
     }
 
     @Override

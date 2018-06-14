@@ -21,9 +21,9 @@ public class CentroMando extends Edificacion {
         this.edificaciones=new ArrayList<>();
         nivel=0;
         inventarioRecursos = new HashMap<>();
-        inventarioRecursos.put(RECURSO1,10);
-        inventarioRecursos.put(RECURSO2,5);
-        inventarioRecursos.put(RECURSO3,3);
+        inventarioRecursos.put(CALIZA,1000);
+        inventarioRecursos.put(COMIDA,500);
+        inventarioRecursos.put(METALES,300);
     }
 
     public ArrayList<Edificacion> getEdificaciones() { return edificaciones; }
@@ -38,11 +38,20 @@ public class CentroMando extends Edificacion {
 
     public void setInventarioRecursos(Map<Recurso, Integer> inventarioRecursos) { this.inventarioRecursos = inventarioRecursos; }
 
-
+    public void addEdificacion(Edificacion edificacion){
+        
+        edificaciones.add(edificacion); 
+    }
+    
+    public void recibir(Recurso recurso, int n){
+        inventarioRecursos.put(recurso, inventarioRecursos.get(recurso)+n);
+    }
+    
     public void pagar(Map<Recurso, Integer> costo) throws Exception{
         for (Map.Entry<Recurso,Integer> r: costo.entrySet()){
             if(inventarioRecursos.get(r.getKey())>=r.getValue()){
-                inventarioRecursos.put(r.getKey(),r.getValue()-costo.get(r.getKey())); 
+                inventarioRecursos.put(r.getKey(),
+                        inventarioRecursos.get(r.getKey())-costo.get(r.getKey())); 
             }else{
                 Exception e= new Exception("Recursos insuficientes");
                 throw e;
@@ -51,17 +60,13 @@ public class CentroMando extends Edificacion {
     }
 
     
-    public void addEdificacion(Edificacion edificacion){
-        edificaciones.add(edificacion); 
-    }
-
     
     @Override
     public String toString() {
         return "\nNivel: " + nivel +
-                  "\nEdificaciones: " + edificaciones.size() +
-                  "\nrecurso1:" + inventarioRecursos.get(RECURSO1)+
-                  "\nrecurso2:" + inventarioRecursos.get(RECURSO2)+
-                  "\nrecurso3:" + inventarioRecursos.get(RECURSO3);
+                  "| Edificaciones: " + edificaciones.size() +
+                  "| recurso1:" + inventarioRecursos.get(CALIZA)+
+                  "| recurso2:" + inventarioRecursos.get(COMIDA)+
+                  "| recurso3:" + inventarioRecursos.get(METALES);
         }
 }
