@@ -42,5 +42,10 @@ public class GeneradorRecurso extends Edificacion implements ManejadordeRecursos
     };
 
     @Override
-    public Elemento generarRecurso(Enum Recurso) {return null;}
+    public Elemento generarRecurso(Elemento elemento) {return null;}
+
+    @Override
+    public int getCantRecurso() {return 0;}
+
+
 }

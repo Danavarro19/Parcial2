@@ -1,9 +1,8 @@
 package Client;
 
-import Abstract.Recurso;
 import static Abstract.Recurso.METALES;
 import Client.Raza.*;
-import Concrete.Edifiacion.TipoEdif;
+import static Concrete.Edifiacion.TipoEdif.BASEAEREA;
 import static Concrete.Edifiacion.TipoEdif.CUARTEL;
 import static Concrete.Edifiacion.TipoEdif.GENERADOR_DE_RECURSOS;
 import static Concrete.Edifiacion.TipoEdif.RECOLECTOR_DE_RECURSOS;
@@ -59,7 +58,6 @@ public class DanielNavarros_World {
 
     public void jugarTurno(Jugador jugador) throws Exception{
         
-        Menu.Dashboard(jugador);
         int opcion = Menu.menuTurno(jugador);
         switch(opcion){
             case 1:
@@ -81,7 +79,7 @@ public class DanielNavarros_World {
                                 op);
                         break;
                     case 5:
-                        jugador.getTerritorio().construir(RECOLECTOR_DE_RECURSOS,
+                        jugador.getTerritorio().construir(BASEAEREA,
                                 op);
                         break;
                 }
@@ -91,18 +89,38 @@ public class DanielNavarros_World {
                 int opcion2 =Menu.menuGuerra();
                 switch(opcion2){
                     case 1:
-                        //jugador.getTerritorio().
+                        jugador.getTerritorio().getEspecialista();
+                        break;
                     case 2:
+                        int op2=Menu.menuEscuadron(jugador.getTerritorio());
+                        jugador.getTerritorio().entrenarTopa(op2-1);
+                        break;
                     case 3:
+                        int Op3=Menu.menuAvion(jugador.getTerritorio());
+                        jugador.getTerritorio().preparaAvion(Op3-1);
+                        break;
+                    case 4:
+                        int Op4=Menu.menuCarro(jugador.getTerritorio());
+                        jugador.getTerritorio().preparaAvion(Op4-1);
+                        break;
+                    case 5:
+                        int Op5=Menu.menuAtacar(jugador.getTerritorio());
+                        
+                        switch(Op5){
+                        
+                        }
+                        break;
                 }
                 
                 break;
             case 3:
                 jugador.getCentroDeMando().recibir(jugador.getTerritorio().recolectar());
                 break;
+            case 4:
+                terminarTurno(jugador);
+                break;
         }
-        terminarTurno(jugador);
-        Menu.Division();        
+        Menu.Division2();        
         
         
     }
@@ -111,6 +129,8 @@ public class DanielNavarros_World {
         jugador.getCentroDeMando().recibir(METALES, 
                 jugador.getTerritorio().generarRecursos()); 
         jugador.getTerritorio().producir();
+        DanielNavarros_World.fase+=0.5;
+        Menu.Division();
         turno=!turno;
     }
 
@@ -119,21 +139,20 @@ public class DanielNavarros_World {
         while(true){
             try {
                 DanielNavarros_World jueguillo= DanielNavarros_World.getJuego();   
-            
-                while(true){
+                Menu.Division();
                 
-                    Menu.Division();
+                while(true){
                     Jugador jugador;
                     if(turno)
                         jugador = jugadores[0];
                     else    
                         jugador = jugadores[1];
+                    Menu.Dashboard(jugador);
                     jueguillo.jugarTurno(jugador);
-                    DanielNavarros_World.fase+=0.5;
-
+                    
                 }
             }catch (Exception ex) {
-                    System.err.println(ex);
+                    System.err.println(ex.getMessage());
                 }
         }
     }

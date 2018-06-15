@@ -41,8 +41,8 @@ public class Jugador {
     
     @Override
     public String toString() {
-        return "Jugador: " + nombre +
-                " | "+ raza.getNombre()+
-                "\nCentro de mando: "+centroMando;
+        return  raza.getNombre()+
+                "\nCentro de mando: |"+centroMando+
+                "\nTerritorio: |"+territorio;
     }
 }

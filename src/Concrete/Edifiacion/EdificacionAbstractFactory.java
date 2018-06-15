@@ -32,6 +32,9 @@ public class EdificacionAbstractFactory implements AbstractFactory {
             
             case CUARTEL:
                 return new Cuartel(raza,edif);
+                
+            case BASEAEREA:
+                return new BaseAerea(raza, edif);
         }
         return null;
     }

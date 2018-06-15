@@ -56,26 +56,38 @@ public class CentroMando extends Edificacion {
         }
     }
     
-    public void pagar(Map<Recurso, Integer> costo) throws Exception{
+    public boolean verificarRecursos(Map<Recurso, Integer> costo){
         for (Map.Entry<Recurso,Integer> r: costo.entrySet()){
-            if(inventarioRecursos.get(r.getKey())>=r.getValue()){
+                if(inventarioRecursos.get(r.getKey())<r.getValue()){
+                    return false;
+                }
+        }
+        return true;
+        
+    }
+    
+    
+    public void pagar(Map<Recurso, Integer> costo) throws Exception{
+        if(verificarRecursos(costo)){
+            for (Map.Entry<Recurso,Integer> r: costo.entrySet()){
                 inventarioRecursos.put(r.getKey(),
                         inventarioRecursos.get(r.getKey())-costo.get(r.getKey())); 
-            }else{
-                Exception e= new Exception("Recursos insuficientes");
-                throw e;
             }
+        }else{
+            Exception e= new Exception("Recursos insuficientes");
+            throw e;
         }
     }
+    
 
     
     
     @Override
     public String toString() {
-        return "\nNivel: " + nivel +
+        return "Nivel: " + nivel +
                   "| Edificaciones: " + edificaciones.size() +
-                  "| "+CALIZA +": "+ inventarioRecursos.get(CALIZA)+
-                  "| "+COMIDA+": "+ inventarioRecursos.get(COMIDA)+
-                  "| "+METALES+": " + inventarioRecursos.get(METALES);
+                  "| "+CALIZA +" "+ inventarioRecursos.get(CALIZA)+
+                  "| "+COMIDA+" "+ inventarioRecursos.get(COMIDA)+
+                  "| "+METALES+" " + inventarioRecursos.get(METALES);
         }
 }

@@ -13,7 +13,8 @@ import Abstract.Elemento;
  */
 public interface ManejadordeRecursos {
    
-    Elemento generarRecurso(Enum Recurso);
+    Elemento  generarRecurso(Elemento elemento) throws Exception;
     int generarRecurso();
+    int getCantRecurso();
     
 }

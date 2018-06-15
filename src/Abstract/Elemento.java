@@ -10,10 +10,10 @@ public abstract class Elemento  {
     private final int FASE_CREACION;
     private boolean disponible;
     private final Raza RAZA;
-    private  Map<Recurso,Integer> costo;
+    private Map<Recurso,Integer> costo;
     protected int vida;
     private int tiempo_espera;
-    private float danio_ataque;
+    private int danio_ataque;
 
     protected Elemento(Raza raza) {
         this.RAZA=raza;
@@ -34,7 +34,7 @@ public abstract class Elemento  {
 
     public int getTiempo_espera() { return tiempo_espera; }
 
-    public float getDanio_ataque() { return danio_ataque; }
+    public int getDanio_ataque() { return danio_ataque; }
 
     public Map<Recurso, Integer> getCosto() { return costo; }
     
@@ -44,7 +44,7 @@ public abstract class Elemento  {
 
     public void setTiempo_espera(int tiempo_espera) { this.tiempo_espera = tiempo_espera; }
 
-    public void setDanio_ataque(float danio_ataque) { this.danio_ataque = danio_ataque; }
+    public void setDanio_ataque(int danio_ataque) { this.danio_ataque = danio_ataque; }
 
     public void setCosto(Map<Recurso, Integer> costo) { this.costo = costo; }
 

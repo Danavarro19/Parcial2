@@ -26,17 +26,22 @@ public class RecolectorRecurso extends  Edificacion implements ManejadordeRecurs
 
     public Enum getRecurso() { return recurso; }
     
-    public int getCant(){ return this.cant; }
-
-
+    public int getCant(){ 
+        int recoleccion=this.cant;
+        this.cant=0;
+        return recoleccion; }
+    
     public RecolectorRecurso setRecurso(Enum recurso){
         this.recurso=recurso;
         return this;
     }
 
     @Override
-    public Elemento generarRecurso(Enum Recurso) { return null;}
+    public Elemento generarRecurso(Elemento elemento) {return null;}
 
+    @Override
+    public int getCantRecurso() {return 0;}
+    
     @Override
     public int generarRecurso() {
         if (this.cant <10){
