@@ -56,7 +56,7 @@ public class DanielNavarros_World {
         return null;
     }
 
-    public void jugarTurno(Jugador jugador) throws Exception{
+    public void jugarTurno(Jugador jugador, Jugador jugador2) throws Exception{
         
         int opcion = Menu.menuTurno(jugador);
         switch(opcion){
@@ -89,7 +89,7 @@ public class DanielNavarros_World {
                 int opcion2 =Menu.menuGuerra();
                 switch(opcion2){
                     case 1:
-                        jugador.getTerritorio().getEspecialista();
+                        jugador.getTerritorio().prepararEspecialista();
                         break;
                     case 2:
                         int op2=Menu.menuEscuadron(jugador.getTerritorio());
@@ -107,7 +107,16 @@ public class DanielNavarros_World {
                         int Op5=Menu.menuAtacar(jugador.getTerritorio());
                         
                         switch(Op5){
+                            case 1:
+                                jugador.getTerritorio().getEspecialista().
+                                        setObejetivo(jugador2.getCentroDeMando().
+                                                getVictima());
+                                jugador.getTerritorio().getAtacantes().
+                                        add(jugador.getTerritorio().getEspecialista());
                         
+                                break;
+                            case 2:
+                                break;
                         }
                         break;
                 }
@@ -125,10 +134,11 @@ public class DanielNavarros_World {
         
     }
     
-    private void terminarTurno(Jugador jugador){
+    private void terminarTurno(Jugador jugador) throws Exception{
         jugador.getCentroDeMando().recibir(METALES, 
                 jugador.getTerritorio().generarRecursos()); 
         jugador.getTerritorio().producir();
+        jugador.getTerritorio().atacar();
         DanielNavarros_World.fase+=0.5;
         Menu.Division();
         turno=!turno;
@@ -143,12 +153,16 @@ public class DanielNavarros_World {
                 
                 while(true){
                     Jugador jugador;
-                    if(turno)
+                    Jugador jugador1;
+                    if(turno){
                         jugador = jugadores[0];
-                    else    
+                        jugador1 = jugadores[1];
+                    }else{    
                         jugador = jugadores[1];
+                        jugador1 = jugadores[0];
+                    }
                     Menu.Dashboard(jugador);
-                    jueguillo.jugarTurno(jugador);
+                    jueguillo.jugarTurno(jugador,jugador1);
                     
                 }
             }catch (Exception ex) {

@@ -30,6 +30,8 @@ public class GeneradorRecurso extends Edificacion implements ManejadordeRecursos
         costo.put(METALES,super.getRaza().getRazaRecoleccion()*3);
         super.setCosto(costo);
         super.setTiempo_espera(2);
+        super.setVida(3);
+    
     }
     
 

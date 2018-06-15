@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static Abstract.Recurso.*;
 import Client.Jugador;
+import Client.Territorio;
 import static Concrete.Edifiacion.TipoEdif.CENTRO_DE_MANDO;
 
 public class CentroMando extends Edificacion {
@@ -25,6 +26,8 @@ public class CentroMando extends Edificacion {
         inventarioRecursos.put(CALIZA,super.getRaza().getRazaVelocidad()*10);
         inventarioRecursos.put(COMIDA,super.getRaza().getRazaFuerza()*12);
         inventarioRecursos.put(METALES,super.getRaza().getRazaRecoleccion()*6);
+        super.setVida(12);
+    
     }
 
     public ArrayList<Edificacion> getEdificaciones() { return edificaciones; }
@@ -39,10 +42,7 @@ public class CentroMando extends Edificacion {
 
     public void setInventarioRecursos(Map<Recurso, Integer> inventarioRecursos) { this.inventarioRecursos = inventarioRecursos; }
 
-    public void addEdificacion(Edificacion edificacion){
-        
-        edificaciones.add(edificacion); 
-    }
+    public void addEdificacion(Edificacion edificacion){edificaciones.add(edificacion);}
     
     public void recibir(Recurso recurso, int n){
         inventarioRecursos.put(recurso, inventarioRecursos.get(recurso)+n);
@@ -77,6 +77,14 @@ public class CentroMando extends Edificacion {
             Exception e= new Exception("Recursos insuficientes");
             throw e;
         }
+    }
+    
+    public Edificacion getVictima(){
+        for (Edificacion e: edificaciones){
+            if(Territorio.verificarDisponibilidad(e))
+                return e;
+        }
+        return null;
     }
     
 

@@ -7,6 +7,7 @@ package Client;
 
 import Abstract.Edificacion;
 import Abstract.Elemento;
+import Abstract.Guerra.Atacante;
 import Abstract.Recurso;
 import static Abstract.Recurso.*;
 import static Client.Factories.EDIFICACION;
@@ -44,7 +45,9 @@ public class Territorio {
     private ArrayList<ManejadordeRecursos> cuarteles= new ArrayList<>();
     private ArrayList<ManejadordeRecursos> basesAereas= new ArrayList<>();
     private ArrayList<ManejadordeRecursos> basesTerrestres= new ArrayList<>();
+    private ArrayList<Atacante> atacantes=new ArrayList<>();
     private Especialista especialista;
+    
 
     public Jugador getJugador() {return jugador;}
 
@@ -59,6 +62,11 @@ public class Territorio {
     public ArrayList<ManejadordeRecursos> getBasesAereas() {return basesAereas;}
     
     public ArrayList<ManejadordeRecursos> getBasesTerrestres() {return basesTerrestres;}
+
+    public Especialista getEspecialista() {return especialista;}
+
+    public ArrayList<Atacante> getAtacantes() {return atacantes;}
+    
     
     public Territorio(Jugador jugador){ this.jugador=jugador;}
     
@@ -161,7 +169,7 @@ public class Territorio {
         return recoleccion;
     }
     
-    public void getEspecialista() throws Exception{
+    public void prepararEspecialista() throws Exception{
         if (this.especialista==null){
             Especialista espec= (Especialista) FactoryProducer.getFactory(MILICIA).getMilicia(ESPECIALISTA, 
                     this.jugador.getRaza());
@@ -220,6 +228,11 @@ public class Territorio {
         return cantidad;
     }
     
+    public void atacar() throws Exception{
+        for(Atacante a:atacantes){
+            a.atacar();
+        }
+    }
 
     @Override
     public String toString() {

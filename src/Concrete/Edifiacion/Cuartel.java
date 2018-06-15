@@ -45,6 +45,8 @@ public class Cuartel extends Edificacion implements ManejadordeRecursos {
         costo.put(METALES,super.getRaza().getRazaRecoleccion()*6);
         super.setCosto(costo);
         super.setTiempo_espera(2);
+        super.setVida(4);
+    
     }
 
     

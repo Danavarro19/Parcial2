@@ -22,6 +22,8 @@ public class RecolectorRecurso extends  Edificacion implements ManejadordeRecurs
         costo.put(METALES,super.getRaza().getRazaRecoleccion()*3);
         super.setCosto(costo);    
         super.setTiempo_espera(1);
+        super.setVida(3);
+    
     }
 
     public Enum getRecurso() { return recurso; }

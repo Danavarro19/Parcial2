@@ -19,8 +19,11 @@ public abstract class Milicia extends Elemento implements Atacante, Victima{
     }
     
     @Override
-    public void sufrir(int danno){
-        this.vida=this.vida-danno;
+    public void sufrir(int danno)throws Exception{
+        if(this.vida!=0)
+            this.vida=this.vida-danno;
+        else 
+            throw new Exception("Murio");
     }
     
 }
